@@ -27,6 +27,8 @@ app.use(async (ctx, next) => {
     }
     await next()
   }
+
+  await next()
 })
 
 app.use(bodyParser())
