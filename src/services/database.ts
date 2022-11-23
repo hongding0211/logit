@@ -36,6 +36,35 @@ export default class DataBase {
     return res
   }
 
+  async findWithPagination(
+    collection: string,
+    page: number,
+    size: number,
+    query = {},
+    options = {}
+  ): Promise<[WithId<Document>[], number]> {
+    let res: WithId<Document>[] = []
+    let cnt = 0
+    try {
+      await this.client.connect()
+
+      const database = this.client.db(DataBase.dbName)
+      const c = database.collection(collection)
+
+      const cursor = c
+        .find(query, options)
+        .sort({ _id: -1 })
+        .skip((page - 1) * size)
+        .limit(size)
+      res = await cursor.toArray()
+
+      cnt = await c.find().count()
+    } finally {
+      await this.client.close()
+    }
+    return [res, cnt]
+  }
+
   async insert(collection: string, docs: OptionalId<Document>[], options = {}) {
     let res = null
 
