@@ -26,9 +26,9 @@ app.use(async (ctx, next) => {
       ctx.throw(403, 'Invalid token')
     }
     await next()
+  } else {
+    await next()
   }
-
-  await next()
 })
 
 app.use(bodyParser())
