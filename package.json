@@ -10,11 +10,13 @@
     "build": "webpack"
   },
   "dependencies": {
+    "@types/node-fetch": "2",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-cors": "^0.0.16",
     "koa-router": "^12.0.0",
     "mongodb": "^4.11.0",
+    "node-fetch": "2",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {

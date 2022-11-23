@@ -4,3 +4,5 @@ export const databaseConfig = {
 }
 
 export const SECRET = 'linmeihuashiyigemeimao'
+
+export const SSO_HOST = 'https://hong97.ltd/sso'
