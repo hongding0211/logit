@@ -19,18 +19,18 @@ app.use(async (ctx, next) => {
     if (authToken == null) {
       ctx.throw(401, 'Auth token is required')
     }
-    fetch(`${SSO_HOST}/api/userInfo?authToken=${authToken}`).then(v => {
-      return v.json()
-    }).catch(v => {
-      ctx.throw(403, 'Invalid token')
+    const r = await fetch(`${SSO_HOST}/api/checkAuthToken?authToken=${authToken}`, {
+      method: 'HEAD',
     })
+    if (r.status !== 200) {
+      ctx.throw(403, 'Invalid token')
+    }
+    await next()
   }
-
-  await next()
 })
 
 app.use(bodyParser())
 
 app.use(router)
 
-app.listen(3000)
+app.listen(4000)
